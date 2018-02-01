@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { FormPage } from '../form/form';
 import { NavController } from 'ionic-angular';
+import { TodoProvider } from './../../providers/todo/todo';
 
 @Component({
   selector: 'page-home',
@@ -7,8 +9,51 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  public todoList
+
+
+  public filterList: string[] = ['Toutes','En cours','Terminées'];
+
+  public selectedFilter:string = 'Toutes';
+
+  constructor(public navCtrl: NavController, public todoProvider: TodoProvider) {
 
   }
 
+  ionViewDidLoad(){
+    this.todoList = this.todoProvider.getAll();
+  }
+
+  ionViewWillEnter(){
+    this.selectedFilter = 'Toutes';
+    this.filterTodo();
+  }
+
+  filterTodo(){
+    let selectedItem = this.selectedFilter.trim();
+    if(selectedItem == 'En cours'){
+      this.todoList = this.todoProvider.getNotDone();
+    } else if(selectedItem == 'Terminées'){
+      this.todoList = this.todoProvider.getDone();
+    } else {
+      this.todoList = this.todoProvider.getAll();
+    }
+  }
+
+  delete(pos){
+    this.todoProvider.delete(pos);
+  }
+
+  edit(todo){
+    this.navCtrl.push(FormPage, {todo: todo});
+  }
+
+  add(){
+    this.navCtrl.push(FormPage);
+  }
+
+  changeDone(todo){
+    todo.done = !todo.done;
+    this.filterTodo();
+  }
 }
