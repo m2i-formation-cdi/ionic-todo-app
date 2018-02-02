@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormPage } from '../form/form';
 import { NavController } from 'ionic-angular';
 import { TodoProvider } from './../../providers/todo/todo';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 
 @Component({
   selector: 'page-home',
@@ -16,7 +17,9 @@ export class HomePage {
 
   public selectedFilter:string = 'Toutes';
 
-  constructor(public navCtrl: NavController, public todoProvider: TodoProvider) {
+  constructor(public navCtrl: NavController
+    ,public todoProvider: TodoProvider
+    ,public alertCtrl: AlertController) {
 
   }
 
@@ -41,7 +44,15 @@ export class HomePage {
   }
 
   delete(pos){
-    this.todoProvider.delete(pos);
+    let alertOptions = {
+      title: 'Voulez-vous supprimer cette tâche ?',
+      buttons: [
+        {text: 'OUI', handler: ()=>{this.todoProvider.delete(pos);} },
+        {text: 'NON', role: 'cancel'}
+      ]
+    };
+
+    this.alertCtrl.create(alertOptions).present();    
   }
 
   edit(todo){
