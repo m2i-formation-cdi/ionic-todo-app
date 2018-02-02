@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TodoProvider } from '../providers/todo/todo';
+import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TodoProvider } from '../providers/todo/todo';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

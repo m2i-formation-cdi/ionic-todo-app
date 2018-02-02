@@ -8,6 +8,11 @@
 
     <ion-navbar>
         <ion-title>{{title}}</ion-title>
+        <ion-buttons end> 
+            <button ion-button (click)="showMenu()">
+                ...
+            </button>
+        </ion-buttons>
     </ion-navbar>
 
 </ion-header>
@@ -27,4 +32,13 @@
             <button ion-button full (click)="validForm()">Valider</button>
         </ion-item>
     </ion-list>
+
+    <ion-fab bottom right>
+            <button ion-fab> <ion-icon name="arrow-dropup"></ion-icon></button>
+            <ion-fab-list side="top">
+            <button ion-fab><ion-icon name="star"></ion-icon></button>
+            <button ion-fab><ion-icon name="heart"></ion-icon></button>
+            <button ion-fab><ion-icon name="settings"></ion-icon></button>
+            </ion-fab-list>
+    </ion-fab>
 </ion-content>
